@@ -10,6 +10,7 @@ const EditProfile = ({ user }) => {
   const [firstName, setFistName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [gender, setGender] = useState(user.gender);
+  const [about, setAbout] = useState(user.about);
   const [age, setAge] = useState(user.age);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
 
@@ -67,6 +68,10 @@ const EditProfile = ({ user }) => {
         <label className="input input-bordered flex items-center gap-2">
           Add Photo Url
           <input type="text" className="grow" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} />
+        </label>
+        <label className="input input-bordered flex items-center gap-2">
+          About
+          <input type="text" className="grow" value={about} onChange={(e) => setAbout(e.target.value)} />
         </label>
       </div>
       <div className='flex flex-col gap-4'>
