@@ -4,10 +4,14 @@ import { BASE_URL } from '../utils/constants';
 import axios from 'axios';
 import { addFeed } from '../utils/feedSlice';
 import UserCard from '../components/UserCard';
+import { useNavigate } from 'react-router-dom';
 
 const Feed = () => {
 
+  const user = useSelector((store)=>store.user);
   const feed = useSelector((store)=>store.feed);
+
+  const navigate = useNavigate();
   const dispath = useDispatch();
 
   const getFeed = async ()=>{
@@ -24,6 +28,11 @@ const Feed = () => {
   useEffect(()=>{
     getFeed();  
   },[])
+
+  if(!user){
+    console.log('no data');
+    navigate('/login');
+  }
 
   if(!feed){
     return 'loading...'

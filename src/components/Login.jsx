@@ -21,7 +21,7 @@ const Login = () => {
         password : password
       },{ withCredentials: true });
       dispatch(addUser(response.data));
-      navigate('/');
+      navigate('/feed');
       console.log(response);
     }
     catch(err){

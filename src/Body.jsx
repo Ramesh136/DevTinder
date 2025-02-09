@@ -9,6 +9,8 @@ import { addUser } from './utils/userSlice'
 
 const Body = () => {
 
+  const user = useSelector((store)=>store.user);
+
   const dispath = useDispatch();
   const naviagte = useNavigate();
 
@@ -26,6 +28,7 @@ const Body = () => {
   useEffect(()=>{
     fetchUser()
   },[])
+
   return (
     <>
       <NavBar />
