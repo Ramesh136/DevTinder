@@ -1,0 +1,13 @@
+span.loading {
+  visibility: hidden;
+}
+
+.btn.load span.btn-message {
+  z-index: -1;
+  visibility: hidden
+}
+
+.btn.load span.loading {
+  z-index: 1;
+  visibility: visible;
+}

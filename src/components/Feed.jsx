@@ -38,6 +38,10 @@ const Feed = () => {
     return 'loading...'
   }
 
+  if(feed.length === 0){
+    return <h1 className='text-3xl text-center my-4 text-white'>You are connected with everyone</h1>
+  }
+
   return (
     <div className='flex items-center flex-col justify-center mt-4 gap-10'>
       <h1 className='text-3xl'>Explore near you</h1>

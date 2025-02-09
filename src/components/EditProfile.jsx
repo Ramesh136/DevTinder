@@ -7,12 +7,14 @@ import { addUser } from '../utils/userSlice';
 
 const EditProfile = ({ user }) => {
 
-  const [firstName, setFistName] = useState(user.firstName);
+  const [firstName, setFirstName] = useState(user.firstName);
   const [lastName, setLastName] = useState(user.lastName);
   const [gender, setGender] = useState(user.gender);
   const [about, setAbout] = useState(user.about);
   const [age, setAge] = useState(user.age);
   const [photoUrl, setPhotoUrl] = useState(user.photoUrl);
+
+  const [loading , setLoading] = useState(false)
 
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
@@ -20,6 +22,7 @@ const EditProfile = ({ user }) => {
   const dispatch = useDispatch();
 
   const editSubmitHandler = async () => {
+    setLoading(true);
     try {
       const response = await axios.patch(BASE_URL + '/profile',
         {
@@ -27,19 +30,27 @@ const EditProfile = ({ user }) => {
           lastName,
           gender,
           photoUrl,
-          age
+          age,
+          about
         },
         { withCredentials: true }
       );
       console.log(response);
       dispatch(addUser({user :response?.data?.user}));
       setSuccessMsg(response?.data?.message);
-      setTimeout(() => setSuccessMsg(false), 1500);
+      setTimeout(() => {
+        setLoading(false)
+        setSuccessMsg(false)
+      }, 1500);
+      
     }
     catch (err) {
       console.log(err);
       setErrorMsg('Something Went wrong');
-      setTimeout(() => setErrorMsg(''), 1500);
+      setTimeout(() => {
+        setErrorMsg('')
+        setLoading(false)
+      }, 1500);
     }
   }
 
@@ -47,36 +58,36 @@ const EditProfile = ({ user }) => {
     <div className='flex gap-10 justify-center mt-10 items-center'>
       <div className='flex flex-col gap-4'>
         <label className="input input-bordered flex items-center gap-2">
-          First Name
-          <input type="text" className="grow" value={firstName} onChange={(e) => setFistName(e.target.value)} />
+          <span className='font-bold whitespace-nowrap'>First Name :</span>
+          <input type="text" className="grow" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          Last Name
+          <span>Last Name :</span>
           <input type="text" className="grow" value={lastName} onChange={(e) => setLastName(e.target.value)} />
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          Age
+          <span className='font-bold whitespace-nowrap'>Age :</span>
           <input type="number" className="grow" value={age} onChange={(e) => setAge(e.target.value)} />
         </label>
         <label className='input input-bordered flex items-center gap-2'>
-          Gender
+          <span className='font-bold whitespace-nowrap'>Gender :</span>
           <select className="h-full bg-inherit w-full max-w-xs" value={gender} onChange={(e) => setGender(e.target.value)}>
             <option>male</option>
             <option>female</option>
           </select>
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          Add Photo Url
+          <span className='font-bold whitespace-nowrap'>Add Photo Url :</span>
           <input type="text" className="grow" value={photoUrl} onChange={(e) => setPhotoUrl(e.target.value)} />
         </label>
         <label className="input input-bordered flex items-center gap-2">
-          About
+          <span className='font-bold whitespace-nowrap'>About :</span>
           <input type="text" className="grow" value={about} onChange={(e) => setAbout(e.target.value)} />
         </label>
       </div>
       <div className='flex flex-col gap-4'>
-        <UserCard user={{ firstName, lastName, gender, photoUrl, age }} />
-        <button className='btn btn-primary' onClick={editSubmitHandler}>Submit</button>
+        <UserCard user={{ firstName, lastName, gender, photoUrl, age , about }} type={'userCard'}/>
+        <button className='btn btn-primary' onClick={editSubmitHandler}>{ loading ? <span className="loading loading-dots loading-sm"></span> : 'Submit'}</button>
       </div>
       <div className="toast toast-end toast-middle">
         {

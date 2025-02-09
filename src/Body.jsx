@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { BASE_URL } from './utils/constants'
 import axios from 'axios'
 import { addUser } from './utils/userSlice'
+import './app.css'
+
 
 const Body = () => {
 
