@@ -3,18 +3,20 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../utils/constants';
 
 const Login = () => {
 
   const [email , setEmail] = useState("ram@gmail.com");
   const [password , setPassword] = useState("Ram@1234");
+  const [error , setError] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const loginHandler = async ()=>{
 
     try{
-      const response = await axios.post("http://localhost:9709/login", {
+      const response = await axios.post(BASE_URL+"/login", {
         emailId : email,
         password : password
       },{ withCredentials: true });
@@ -23,10 +25,16 @@ const Login = () => {
       console.log(response);
     }
     catch(err){
-      console.err(err.message);
+      if(err?.response?.data){
+        setError(err?.response?.data);
+        setTimeout(()=>setError(''),2000)
+      }
+      else{
+        setError(err.message);
+        setTimeout(()=>setError(''),2000)
+      }
     }
   }
-
 
   return (
     <div className='pt-4 max-w-[300px] mx-auto'>
@@ -59,6 +67,7 @@ const Login = () => {
           <input type="password" className="grow" value={password} onChange={(e)=>setPassword(e.target.value)} />
         </label>
         <button className="btn btn-active btn-primary w-full mt-2" onClick={()=>loginHandler()}>Login</button>
+        <div className='text-red-400'>{error}</div> 
       </div>
     </div>
   )
