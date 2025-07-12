@@ -34,7 +34,7 @@ const Body = () => {
   return (
     <>
       <NavBar />
-      <main className='body-content max-w-[1400px] mx-auto'>
+      <main className='body-content max-w-[1400px] w-full mx-auto'>
         <Outlet />
       </main>
       <Footer />

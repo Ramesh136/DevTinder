@@ -5,19 +5,6 @@ import { useSelector } from 'react-redux';
 import { BASE_URL } from '../utils/constants';
 import axios from 'axios';
 
-const InitialMessages = [
-  {
-    senderId : "679605322d42f61fc8036c3d",
-    message : "You were the Chosen One!",
-    sender : "Obi-Wan Kenobi"
-  },
-  {
-    senderId : "679ef5a8799d485a9fecf762",
-    message : "I hate you!",
-    sender : "Anakin"
-  }
-]
-
 const Chat = () => {
   const targetUserId = useParams();
   const [messages, setMessages] = useState([]);
@@ -39,12 +26,10 @@ const Chat = () => {
           sender : message.from === userId ? user.user.firstName + " " + user.user.lastName : targetUserName
         }
       })
-      console.log(responseChats,"responseChats");
-      
+      // console.log(responseChats,"responseChats");
       setMessages(responseChats);
     }
-    setTargetUser(targetUserName);
-    console.log(response);
+    setTargetUser(response.data.targetUser);
   }
 
   useEffect(()=>{
@@ -55,14 +40,10 @@ const Chat = () => {
   },[user])
 
   useEffect(()=>{
-      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight ;
-      console.log("scrolled");
-      
+      chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight ;      
   },[messages])
 
-  useEffect(() => {
-  
-    console.log("targetUserId", targetUserId);
+  useEffect(() => {  
     window.socket = null;
     if(user && targetUserId && targetUserId.targetUserId){
       window.socket = createSocketConnection();
@@ -108,12 +89,12 @@ const Chat = () => {
 
 
   return (
-    <div className='w-[80vw] mx-auto my-8 h-[70vh] border border-gray-700 rounded-md bg-base-200 flex flex-col'>
+    <div className='w-[85%] mx-auto my-5 h-[70vh] border border-gray-700 rounded-md bg-base-200 flex flex-col'>
       <div className='chat--header flex items-center justify-between p-4 border-b border-gray-700'>
         <h1 className='text-2xl'>Chat</h1>
         <div className='flex items-center gap-4'>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnqWQ6b3g5aK5Jj6e7rZ0zY8cX8pU4fXvX9A&usqp=CAU" alt="profileImage" className='w-[50px] h-[50px] object-cover rounded-full' />
-          <h2 className='text-xl font-bold'>{targetUser ? targetUser : "Loading.."}</h2>
+          <h2 className='text-xl font-bold'>{targetUser ? targetUser.firstName + " " + targetUser.lastName : "Loading.."}</h2>
+          <img src={ targetUser?.photoUrl ? targetUser.photoUrl : ""} alt="profileImage" className='w-[50px] h-[50px] object-cover rounded-full' />
         </div>
       </div>
       <div className='chat--body overflow-auto flex-1 px-4 py-4' ref={chatBodyRef}>
@@ -123,11 +104,12 @@ const Chat = () => {
             return (
               <div className={`chat ${senderId !== targetUserId.targetUserId  ? 'chat-end' : 'chat-start'}`} key={index}>
                 <div className="chat-image avatar">
-                  <div className="w-10 rounded-full bg-red-300">
+                  <div className="w-10 rounded-full bg-red-300 !flex items-center justify-center text-black text-lg font-[500]">
+                    {sender.split("")[0]}
                   </div>
                 </div>
-                <div className="chat-header">
-                  {sender}
+                <div className="chat-header mb-1">
+                  {/* {sender} */}
                   {/* <time className="text-xs opacity-50">{time}</time> */}
                 </div>
                 <div className="chat-bubble">{msg}</div>
