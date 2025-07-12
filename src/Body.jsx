@@ -16,6 +16,7 @@ const Body = () => {
   const dispath = useDispatch();
   const naviagte = useNavigate();
 
+  
   const fetchUser = async ()=>{
     try{
       const response = await axios.get(BASE_URL+'/profile/view',{ withCredentials:true})
@@ -26,7 +27,6 @@ const Body = () => {
       console.error(err?.response?.data)
     }
   }
-
   useEffect(()=>{
     fetchUser()
   },[])
@@ -34,9 +34,9 @@ const Body = () => {
   return (
     <>
       <NavBar />
-      <div className='max-w-[1400px] mx-auto'>
+      <main className='body-content max-w-[1400px] mx-auto'>
         <Outlet />
-      </div>
+      </main>
       <Footer />
     </>
   )

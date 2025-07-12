@@ -23,7 +23,7 @@ const NavBar = () => {
     }
   }
   return (
-    <div className='bg-base-300'>
+    <header className='bg-base-300 w-full'>
       <div className="navbar max-w-[1440px] mx-auto">
         <div className="flex-1">
           <Link to={'/'} className="btn btn-ghost text-xl">👩‍💻DevTinder</Link>
@@ -66,7 +66,7 @@ const NavBar = () => {
           <div className='pr-4'><Link to={"/login"}>Login</Link></div>
         }
       </div>
-    </div>
+    </header>
   )
 }
 

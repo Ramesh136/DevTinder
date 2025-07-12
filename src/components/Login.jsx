@@ -14,7 +14,7 @@ const Login = () => {
   const [gender, setGender] = useState('male');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [isLogginForm, setIsLoginForm] = useState(false);
+  const [isLogginForm, setIsLoginForm] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -53,8 +53,8 @@ const Login = () => {
         gender
       }, { withCredentials: true });
       dispatch(addUser(response.data));
-      navigate('/feed');
       console.log(response);
+      navigate('/feed');
     }
     catch (err) {
       if (err?.response?.data) {
@@ -116,14 +116,10 @@ const Login = () => {
           }}
         >
           {isLogginForm ? "Login" : "Signup"}</button>
-        <p className='mx-auto cursor-pointer' onClick={() => {
-          if (isLogginForm) {
-            setIsLoginForm(false);
-          }
-          else {
-            setIsLoginForm(true);
-          }
-        }}>{isLogginForm ? "New user ? signup Now" : "Already a user ? Login now"}</p>
+        <p 
+        className='mx-auto cursor-pointer' 
+        onClick={() => isLogginForm ? setIsLoginForm(false) : setIsLoginForm(true)}
+        >{isLogginForm ? "New user ? Signup Now" : "Already a user ? Login now"}</p>
         <div className='text-red-400'>{error}</div>
       </div>
     </div>

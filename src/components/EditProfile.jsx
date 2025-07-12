@@ -55,8 +55,8 @@ const EditProfile = ({ user }) => {
   }
 
   return (
-    <div className='flex gap-10 justify-center mt-10 items-center'>
-      <div className='flex flex-col gap-4'>
+    <div className='lg:flex my-10  gap-10 justify-center mt-10 items-center'>
+      <div className='flex flex-col gap-4 mb-10'>
         <label className="input input-bordered flex items-center gap-2">
           <span className='font-bold whitespace-nowrap'>First Name :</span>
           <input type="text" className="grow" value={firstName} onChange={(e) => setFirstName(e.target.value)} />

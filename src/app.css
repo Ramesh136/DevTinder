@@ -11,3 +11,15 @@ span.loading {
   z-index: 1;
   visibility: visible;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+main.body-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

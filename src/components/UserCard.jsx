@@ -33,7 +33,7 @@ const UserCard = ({ user , type }) => {
   return (
     <div className="card bg-base-300 w-96 shadow-xl py-4">
       <figure>
-        <img src={photoUrl} alt="photo" className="rounded-full"/>
+        <img src={photoUrl} alt="photo" className="w-[250px] h-[250px] object-cover rounded-[50%]"/>
       </figure>
       <div className="card-body items-center">
         <h2 className="card-title">{firstName + " " + lastName}</h2>
