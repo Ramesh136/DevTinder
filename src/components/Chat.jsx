@@ -16,17 +16,20 @@ const Chat = () => {
 
   const fetchChats = async ()=>{
     const response = await axios.get(BASE_URL+`/chat/${targetUserId.targetUserId}`,{ withCredentials:true});
+    console.log(response);
+    
     const targetUserName = response.data.targetUser.firstName + " " + response.data.targetUser.lastName ;
 
     if(response.data.chats){
       let responseChats = response.data.chats.messages.map((message)=>{
         return {
+          time : message.createdAt,
           senderId: message.from,
           message : message.message,
           sender : message.from === userId ? user.user.firstName + " " + user.user.lastName : targetUserName
         }
       })
-      // console.log(responseChats,"responseChats");
+      console.log(responseChats,"responseChats");
       setMessages(responseChats);
     }
     setTargetUser(response.data.targetUser);
@@ -54,15 +57,16 @@ const Chat = () => {
   
       socket.emit('joinRoom', { userId : userId , targetUserId: targetUserId.targetUserId , userName : user?.user?.firstName + " " + user?.user?.lastName });
 
-      socket.on("receiveMessage",({userId, targetUserId, message , userName})=>{
-        console.log("Received message:", userId, targetUserId, message, userName);
+      socket.on("receiveMessage",({userId, targetUserId, message , userName , time})=>{
+        console.log("Received message:", userId, targetUserId, message, userName , time);
         
         setMessages((prevMessages) => [
           ...prevMessages, 
           {
             senderId: userId,
             message: message,
-            sender: userName
+            sender: userName,
+            time: time
           } 
         ])
       })
@@ -97,7 +101,7 @@ const Chat = () => {
           <img src={ targetUser?.photoUrl ? targetUser.photoUrl : ""} alt="profileImage" className='w-[50px] h-[50px] object-cover rounded-full' />
         </div>
       </div>
-      <div className='chat--body overflow-auto flex-1 px-4 py-4' ref={chatBodyRef}>
+      <div className='chat--body flex flex-col gap-4 overflow-auto flex-1 px-4 py-4' ref={chatBodyRef}>
         {
           messages.map((message, index) => {
             const { senderId, message: msg, time, sender } = message;
@@ -110,7 +114,8 @@ const Chat = () => {
                 </div>
                 <div className="chat-header mb-1">
                   {/* {sender} */}
-                  {/* <time className="text-xs opacity-50">{time}</time> */}
+                  <time className="text-xs opacity-50">{
+                    `${new Date(time).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: true })} , ${new Date(time).toLocaleDateString('en-US', { weekday: 'short' })}`}</time>
                 </div>
                 <div className="chat-bubble">{msg}</div>
               </div>
