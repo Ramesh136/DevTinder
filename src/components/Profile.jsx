@@ -17,7 +17,7 @@ const Profile = () => {
   }
 
   return (
-    <div>
+    <div className='px-4'>
       <EditProfile user={data.user}/>
     </div>
   )

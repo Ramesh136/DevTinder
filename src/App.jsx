@@ -8,6 +8,7 @@ import Feed from './components/Feed'
 import Requests from './components/Requests'
 import Connections from './components/Connections'
 import Chat from './components/Chat'
+import Homepage from './components/Homepage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Body />}>
+            <Route path="/" element={<Homepage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/feed" element={<Feed />} />

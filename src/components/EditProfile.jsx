@@ -85,9 +85,9 @@ const EditProfile = ({ user }) => {
           <input type="text" className="grow" value={about} onChange={(e) => setAbout(e.target.value)} />
         </label>
       </div>
-      <div className='flex flex-col gap-4'>
+      <div className='flex flex-col items-center gap-4'>
         <UserCard user={{ firstName, lastName, gender, photoUrl, age , about }} type={'userCard'}/>
-        <button className='btn btn-primary' onClick={editSubmitHandler}>{ loading ? <span className="loading loading-dots loading-sm"></span> : 'Submit'}</button>
+        <button className='btn btn-primary w-[90%]' onClick={editSubmitHandler}>{ loading ? <span className="loading loading-dots loading-sm"></span> : 'Submit'}</button>
       </div>
       <div className="toast toast-end toast-middle">
         {

@@ -26,7 +26,7 @@ const NavBar = () => {
     <header className='bg-base-300 w-full'>
       <div className="navbar max-w-[1440px] mx-auto">
         <div className="flex-1">
-          <Link to={'/'} className="btn btn-ghost text-xl">👩‍💻DevTinder</Link>
+          <Link to={'/'} className="btn btn-ghost text-xl"><img src="/eazy_connect_logo.jpg" alt="" className='w-[50px] h-[50px] mask mask-heart' />Eazy Connect</Link>
         </div>
         {
           data ?

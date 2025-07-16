@@ -35,13 +35,18 @@ const Connections = () => {
   }
 
   if (connections.length === 0) {
-    return <h1 className='text-3xl text-center text-white'>No connections found</h1>
+    return (
+        <>
+        <h1 className='text-2xl text-center my-4 text-white'>No connections</h1>
+        <Link to={'/feed'} className='btn btn-primary w-[200px] mx-auto'>Explore now</Link>
+        </>
+    )
   }
 
   return (
     <>
       <h1 className='text-3xl text-center my-4 text-white'>Your Connections</h1>
-      <div className='flex items-center justify-center flex-wrap mb-8 gap-4'>
+      <div className='flex items-center justify-center flex-wrap mb-8 gap-4 sm:px-2'>
         {connections.map((connection) => {
           const { firstName, lastName, age, gender, skills, about, id, photoUrl } = connection;
           return (

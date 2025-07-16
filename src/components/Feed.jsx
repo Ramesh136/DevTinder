@@ -4,7 +4,7 @@ import { BASE_URL } from '../utils/constants';
 import axios from 'axios';
 import { addFeed } from '../utils/feedSlice';
 import UserCard from '../components/UserCard';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Feed = () => {
 
@@ -39,7 +39,12 @@ const Feed = () => {
   }
 
   if(feed.length === 0){
-    return <h1 className='text-3xl text-center my-4 text-white'>You are connected with everyone</h1>
+    return (
+      <>
+      <h1 className='text-2xl text-center my-4 text-white'>No Matching Profiles found</h1>
+      <Link to={'/connections'} className='btn btn-primary w-[200px] mx-auto'>Explore your Connections</Link>
+      </>
+  )
   }
 
   return (

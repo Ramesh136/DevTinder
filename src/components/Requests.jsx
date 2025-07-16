@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addRequests, removeRequest } from '../utils/requestsSlice';
 import axios from 'axios';
 import { BASE_URL } from '../utils/constants';
+import { Link } from 'react-router-dom';
 
 const Requests = () => {
 
@@ -50,7 +51,12 @@ const Requests = () => {
   }
 
   if (requests.length === 0) {
-    return <h1 className='text-3xl text-center my-4'>No requests</h1>
+    return (
+        <>
+          <h1 className='text-2xl text-center my-4 text-white'>No new requests</h1>
+          <Link to={'/feed'} className='btn btn-primary w-[200px] mx-auto'>Explore now</Link>
+        </>
+    )
   }
 
   return (
